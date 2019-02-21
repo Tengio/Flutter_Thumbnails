@@ -21,10 +21,7 @@
 }
 
 - (NSString *)imageFromVideoURL:(NSString *)contentPath {
-    NSString *contentURL = [contentPath.stringByDeletingPathExtension stringByAppendingString:@"temp.mp4"];
-    [[NSFileManager defaultManager] copyItemAtPath:contentPath toPath:contentURL error:nil];
-    
-    NSURL *videoURL = [NSURL fileURLWithPath:contentURL];
+    NSURL *videoURL = [NSURL fileURLWithPath:contentPath];
     
     AVAsset *asset = [AVAsset assetWithURL:videoURL];
     
@@ -44,7 +41,7 @@
                                                              NSUserDomainMask, YES);
         NSString *documentsDirectory = [paths objectAtIndex:0];
         NSString* pathTemp = [documentsDirectory stringByAppendingPathComponent:videoURL.lastPathComponent.stringByDeletingPathExtension];
-        NSString* path = [pathTemp stringByAppendingPathExtension:@"jpeg" ];
+        NSString* path = [pathTemp stringByAppendingString:@"_thumb.jpeg" ];
         NSData* data = UIImageJPEGRepresentation(thumbnail, 1);
         [data writeToFile:path atomically:NO];
         
